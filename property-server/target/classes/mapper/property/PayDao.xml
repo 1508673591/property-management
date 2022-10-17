@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.property.dao.PayDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.property.entity.PayEntity" id="payMap">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="amount" column="amount"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.YuXiuHui.modules.property.entity.PayEntity">
+		select p.*, m.real_name 'member.realName' from p_pay p left join base_member m on m.id = p.member_id where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.property.entity.PayEntity">
+		select p.*, m.real_name 'member.realName' from p_pay p left join base_member m on m.id = p.member_id
+        <where>
+			<if test="realName != null and realName.trim() != ''">
+				and m.real_name like concat('%',#{realName},'%') 
+			</if>
+			<if test="memberId != null">
+				and p.member_id = #{memberId}
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from p_pay 
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.property.entity.PayEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into p_pay
+		(
+			`member_id`, 
+			`amount`, 
+			`type`, 
+			`create_time`
+		)
+		values
+		(
+			#{memberId}, 
+			#{amount}, 
+			#{type}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.property.entity.PayEntity">
+		update p_pay 
+		<set>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+			<if test="amount != null">`amount` = #{amount}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from p_pay where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from p_pay where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询近7天缴费 -->
+	<select id="queryPaySum" resultType="java.util.Map">
+		SELECT
+		date_format(create_time,'%Y-%m-%d') as createTime, sum(amount) amount
+		FROM
+		p_pay t1
+		where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;=
+		date(create_time)
+		GROUP BY date_format(create_time,'%Y-%m-%d')
+	</select>
+
+</mapper>

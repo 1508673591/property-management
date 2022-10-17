@@ -1,0 +1,19 @@
+/* pages/cms/comment/index.wxss */
+page{
+  height: 100%
+}
+
+.container{
+  height: 100%;
+  padding: 30rpx
+}
+
+textarea{
+  font-size: 28rpx;
+}
+
+button{
+  background: #00BFE0;
+  color: #fff;
+  font-size: 32rpx;
+}

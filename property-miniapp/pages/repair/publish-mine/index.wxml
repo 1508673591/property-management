@@ -1,0 +1,17 @@
+<view class='container'>
+  <view class="topic-container">
+    <view class="weui-flex topic-box" wx:for="{{orderList}}" wx:key="index" data-id="{{item.id}}">
+      <view class="weui-flex__item">
+        <view class="topic-title">{{item.content}}</view>
+        <view class="topic-item">{{item.address}}</view>
+        <view class="weui-flex">
+          <view class="weui-flex__item topic-item">{{item.realName}}({{item.mobile}})</view>
+          <view class="topic-item">{{item.createTime}}</view>
+        </view>
+      </view>
+      <view hidden="true">
+        <image class="del" src="/images/remove.png" data-id='{{item.id}}' bindtap='delTopic'></image>
+      </view>
+    </view>
+  </view>
+</view>

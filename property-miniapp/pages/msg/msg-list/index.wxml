@@ -1,0 +1,7 @@
+<!--pages/msg-list/index.wxml-->
+<view class="container">
+  <view class="list" wx:for="{{list}}" bindtap="detail" data-id="{{item.id}}" wx:key="index">
+    <view class="title">{{item.title}}</view>
+    <view class="content">{{item.content}}</view>
+  </view>
+</view>

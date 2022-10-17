@@ -1,0 +1,68 @@
+/**index.wxss**/
+swiper{
+  height: 300rpx;
+}
+
+.slide-image{
+  width: 750rpx;
+  height: 300rpx;
+}
+
+p{
+  margin-bottom: 10px;
+}
+
+button{
+  margin-bottom: 10px;
+}
+
+
+.news {
+  background: #fff;
+}
+
+.news-container {
+  padding: 5rpx;
+}
+
+.news-title {
+  font-size: 34rpx;
+  margin-bottom: 15rpx;
+  flex: 1;
+}
+
+.news-summary {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.topic-pic{
+  width: 250rpx;
+  height: 200rpx;
+  margin-right: 20rpx;
+}
+
+.news-box {
+  padding: 20rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #ddd;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin: 20rpx;
+  border-left: 6rpx solid #e64340;
+  padding-left: 8rpx;
+}
+
+.weui-grid {
+  padding: 10px 5px;
+}
+.bg-image
+{ 
+  width : 100%;
+  height : 100%;  
+  position: fixed;  
+  z-index: -1;  
+}

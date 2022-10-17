@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.repair.dao.RepairDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.repair.entity.RepairEntity" id="repairMap">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="realName" column="real_name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="address" column="address"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.YuXiuHui.modules.repair.entity.RepairEntity">
+		select * from r_repair where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.repair.entity.RepairEntity">
+		select r.*, m.nickname 'member.nickname', m.avatar_url 'member.avatarUrl' from r_repair r left join base_member m on m.id = r.member_id
+        <where>
+        	<if test="memberId != null">
+        		and r.member_id = #{memberId}
+        	</if>
+        	<if test="status != null and status != -1">
+        		and r.status = #{status}
+        	</if>
+        	<if test="content != null and content.trim() != ''">
+				and `content` like concat('%',#{content},'%') 
+			</if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from r_repair r left join base_member m on m.id = r.member_id
+		<where>
+        	<if test="userId != null">
+        		and r.member_id = #{userId}
+        	</if>
+        	<if test="status != null and status != -1">
+        		and r.status = #{status}
+        	</if>
+        	<if test="content != null and content.trim() != ''">
+				and `content` like concat('%',#{content},'%') 
+			</if>
+        </where>
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.repair.entity.RepairEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into r_repair
+		(
+			`member_id`, 
+			`real_name`, 
+			`mobile`, 
+			`address`, 
+			`content`, 
+			`status`, 
+			`remark`, 
+			`create_time`
+		)
+		values
+		(
+			#{memberId}, 
+			#{realName}, 
+			#{mobile}, 
+			#{address}, 
+			#{content}, 
+			#{status}, 
+			#{remark}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.repair.entity.RepairEntity">
+		update r_repair 
+		<set>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+			<if test="realName != null">`real_name` = #{realName}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from r_repair where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from r_repair where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

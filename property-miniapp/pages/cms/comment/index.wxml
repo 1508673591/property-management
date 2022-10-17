@@ -1,0 +1,8 @@
+<!--pages/cms/comment/index.wxml-->
+<view class="container">
+  <form bindsubmit='submitComment'>
+    <textarea name="comment" placeholder='请输入您的评论'>
+    </textarea>
+    <button form-type='submit'>提交</button>
+  </form>
+</view>

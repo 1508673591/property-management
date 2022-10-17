@@ -1,0 +1,12 @@
+/* pages/publish/index.wxss */
+.remove{
+	position: absolute;
+	width: 30rpx;
+	height: 30rpx;
+	top: 2rpx;
+	right: 2rpx;
+}
+
+.weui-uploader__file{
+  position: relative;
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.house.dao.HouseDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.house.entity.HouseEntity" id="houseMap">
+        <result property="id" column="id"/>
+        <result property="buildingId" column="building_id"/>
+        <result property="houseNo" column="house_no"/>
+        <result property="memberId" column="member_id"/>
+        <result property="houseType" column="house_type"/>
+        <result property="area" column="area"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.YuXiuHui.modules.house.entity.HouseEntity">
+		select * from p_house where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.house.entity.HouseEntity">
+		select h.*, m.real_name 'member.realName', b.building_name 'building.buildingName' from p_house h left join base_member m on m.id = h.member_id left join p_building b on b.id = h.building_id
+        <where>
+			<if test="houseNo != null and houseNo.trim() != ''">
+				and `house_no` like concat('%',#{houseNo},'%') 
+			</if>
+			<if test="memberId != null">
+				and h.member_id = #{memberId}
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from p_house 
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.house.entity.HouseEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into p_house
+		(
+			`building_id`, 
+			`house_no`, 
+			`member_id`, 
+			`house_type`, 
+			`area`, 
+			`remark`, 
+			`create_time`
+		)
+		values
+		(
+			#{buildingId}, 
+			#{houseNo}, 
+			#{memberId}, 
+			#{houseType}, 
+			#{area}, 
+			#{remark}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.house.entity.HouseEntity">
+		update p_house 
+		<set>
+			<if test="buildingId != null">`building_id` = #{buildingId}, </if>
+			<if test="houseNo != null">`house_no` = #{houseNo}, </if>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+			<if test="houseType != null">`house_type` = #{houseType}, </if>
+			<if test="area != null">`area` = #{area}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from p_house where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from p_house where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

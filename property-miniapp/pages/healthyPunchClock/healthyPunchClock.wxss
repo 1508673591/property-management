@@ -1,0 +1,96 @@
+page{
+  height: 100%;
+  width: 100%;
+  background-color: rgb(24,144,255);
+  padding: 0 15rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  font-size: 55rpx;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+.dec{
+  padding:15rpx 20rpx;
+  color: #fff;
+  font-size: 25rpx;
+  line-height: 34rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+.form-wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+form{
+  flex: 1;
+}
+.form-list{
+  background-color: rgb(230,247,255);
+  border-radius: 16rpx;
+  width: 100%;
+  flex: 1;
+  box-sizing: border-box;
+  padding:25rpx 15rpx 25rpx 15rpx;
+}
+.text{
+  display: block;
+  margin: 16rpx 0;
+  font-size: 26rpx;
+}
+.input{
+  background-color: #fff;
+  height: 60rpx;
+}
+.button{
+  background-color: #fff;
+  width: 100% !important;
+  margin: 40rpx 0 !important;
+  border-radius: 40rpx !important;
+}
+
+
+.picker{
+  background-color: #fff;
+  height: 60rpx;
+}
+checkbox-group{
+  display: flex;
+  flex-direction: column;
+}
+.checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background: rgb(24,144,255);
+  color: #fff;
+}
+
+radio .wx-radio-input{ 
+    height: 28rpx; 
+    width: 28rpx;
+    border-radius: 50%;
+ }
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked {
+   border-color: #2792ff!important;
+}
+radio-group{
+  display: flex;
+  flex-direction: column;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before {
+  /* 去除对号 */
+  content: ''; 
+  /* background: #fff; */
+  text-align:center;
+  transform: translate(-50%,-50%) scale(1);
+  -webkit-transform:translate(-50%, -50%) scale(1);
+  width: 60%;
+  height: 60%;
+  border-radius: 100%;
+  background-color: #2792ff;
+}

@@ -1,0 +1,52 @@
+<!--pages/news-detail/index.wxml-->
+<wxs module="util" src="../../../utils/util.wxs"></wxs>
+<view class='container'>
+  <view class='news-container'>
+    <view class="news-title">
+      {{news.title}}
+    </view>
+    <!--<view class="news-summary">
+      {{news.summary}}
+    </view>-->
+    <view class='news-date'>
+      <view class="news-liked">{{util.formatTimestamp(news.publishDate)}}</view>
+      <view class="news-liked">
+        <text>{{news.likedNum}}点赞  {{news.commentNum}}评论</text>
+      </view>
+    </view>
+
+    <view class='news-content' wx:if="{{news.type == 1}}">
+      <rich-text nodes="{{news.content}}"></rich-text>
+    </view>
+    <view class='news-content' wx:if="{{news.type == 2}}">
+      <video src='{{news.videoUrl}}'></video>
+    </view>
+    <view class='news-content' wx:if="{{news.type == 3}}" hidden="true">
+      <!--<txv-video vid="{{news.vid}}" playerid="txv1" autoplay="false"></txv-video>-->
+    </view>
+  </view>
+  <view class='list-item' wx:for="{{commentList}}" wx:key="index">
+    <view class='weui-flex user-info'>
+      <image src='{{item.member.avatarUrl}}'></image>
+      <view class="info">
+        <view class='nick-name'>{{item.member.nickname}}</view>
+        <view class='create-time'>{{util.formatTimestamp(item.createTime)}}</view>
+      </view>
+    </view>
+    <view class='content'>
+      {{item.content}}
+    </view>
+  </view>
+
+  <view class="weui-footer weui-footer_fixed-bottom">
+    <view class='weui-flex footer-box'>
+      <view class='comment' bindtap='comment' data-id='{{news.id}}'>
+        请输入评论...
+      </view>
+      <!--<image src='/images/comment.png' data-id='{{news.id}}' bindtap='commentList'></image>-->
+      <image src='/images/liked-off.png' data-id='{{news.id}}' bindtap='liked' hidden='{{isLike}}'></image>
+      <image src='/images/liked-on.png' data-id='{{news.id}}' hidden='{{!isLike}}' bindtap='liked'></image>
+    </view>
+  </view>
+  
+</view>

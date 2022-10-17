@@ -1,0 +1,7 @@
+<!--pages/msg-detail/index.wxml-->
+<view class="container">
+  <view class="title">{{msg.title}}</view>
+  <view class="content">
+    {{msg.content}}
+  </view>
+</view>

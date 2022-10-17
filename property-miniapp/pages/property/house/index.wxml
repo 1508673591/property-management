@@ -1,0 +1,17 @@
+<!--pages/join-list/index.wxml-->
+<view class="container">
+  <view class="order-list" hidden="{{houseList.length > 0 ? false : true}}">
+    <view class="a-order" wx:for-items="{{houseList}}" wx:key=index">
+      <view class="order-date">
+        <view class="date-box">名称：{{item.building.buildingName}} {{item.houseNo}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">面积：{{item.area}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">户型：{{item.houseType}}</view>
+      </view>
+      
+    </view>
+  </view>
+</view>

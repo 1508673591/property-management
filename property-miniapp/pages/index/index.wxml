@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!-- 首页介绍 -->
+  <view class="index-headline-text">
+    <button open-type="getUserInfo"  class="userinfo-avatar" style="background-image: url({{avatarUrl}})" size="default"></button>
+    <text class="title">{{nickName}}</text>
+  </view>
+
+  <view class="index-notes-text">
+    <text>健康打卡</text>
+  </view>
+
+  <view class="we-tab__panel">
+    <!-- 返程登记 -->
+    <view class="uploader">
+      <navigator url="../gobackRegister/gobackRegister" open-type="navigate" class="uploader-navigator">
+        <view class="uploader-text"> 返程登记</view>
+        <image class='uploader-img' src='../../images/index-1.png'></image>
+      </navigator>
+    </view>
+
+    <!-- 健康打卡 -->
+    <view class="uploader">
+      <navigator url="../healthyPunchClock/healthyPunchClock" open-type="navigate" class="uploader-navigator">
+        <view class="uploader-text"> 健康打卡</view>
+        <image class='uploader-img' src='../../images/index-2.png'></image>
+      </navigator>
+    </view>
+
+    <!-- 打卡记录 -->
+    <view class="uploader">
+    <!-- url="../gobackRegister/gobackRegister" -->
+      <navigator  open-type="navigate" class="uploader-navigator">
+        <view class="uploader-text"> 开发中···</view>
+        <image class='uploader-img' src='../../images/index-3.png'></image>
+      </navigator>
+    </view>
+
+
+  </view>
+</view>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dd21c321-9251-4ccd-9e2b-a4d14baf5be4" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/resources/views/admin/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/views/admin/login.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/YuXiuHui/YuXiuHuiApplication.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/application.yml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="2717dUnsj6sjfC1waAbWAmvEVIo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../新建文件夹/物必舒1.0/物必舒" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\15086\Desktop\“毓秀汇”物业管理小程序\property-server\src\main\java\com\YuXiuHui\modules\goodsPay" />
+      <recent name="C:\Users\15086\Desktop\“毓秀汇”物业管理小程序\property-server\src\main\resources\mapper\goodsPay" />
+      <recent name="C:\Users\15086\Desktop\“毓秀汇”物业管理小程序\property-server\src\main\resources\static\js\admin\goodsPay" />
+      <recent name="C:\Users\15086\Desktop\“毓秀汇”物业管理小程序\property-server\src\main\resources\views\admin\goodspay" />
+      <recent name="C:\Users\15086\Desktop\“毓秀汇”物业管理小程序\property-server\src\main\java\com\YuXiuHui\modules\goodspay" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="YuXiuHuiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.YuXiuHui.YuXiuHuiApplication" />
+      <module name="property-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.YuXiuHui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.YuXiuHuiApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd21c321-9251-4ccd-9e2b-a4d14baf5be4" name="Default Changelist" comment="" />
+      <created>1648475840735</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648475840735</updated>
+      <workItem from="1648475848217" duration="4315000" />
+      <workItem from="1648483743310" duration="2772000" />
+      <workItem from="1648517564048" duration="2203000" />
+      <workItem from="1648647049345" duration="1899000" />
+      <workItem from="1649150026949" duration="719000" />
+      <workItem from="1649245570314" duration="1305000" />
+      <workItem from="1649842139925" duration="2895000" />
+      <workItem from="1649848125698" duration="2690000" />
+      <workItem from="1649900890496" duration="7768000" />
+      <workItem from="1649926715388" duration="9097000" />
+      <workItem from="1650114389936" duration="1422000" />
+      <workItem from="1650173068677" duration="513000" />
+      <workItem from="1650173951203" duration="298000" />
+      <workItem from="1650174521050" duration="35320000" />
+      <workItem from="1650376599908" duration="330000" />
+      <workItem from="1650377117201" duration="476000" />
+      <workItem from="1650377704998" duration="97000" />
+      <workItem from="1650377900684" duration="11359000" />
+      <workItem from="1650425616710" duration="687000" />
+      <workItem from="1650426376112" duration="19823000" />
+      <workItem from="1650587696484" duration="28024000" />
+      <workItem from="1650653234398" duration="3607000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

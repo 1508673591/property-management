@@ -1,0 +1,14 @@
+<!--pages/join-list/index.wxml-->
+<view class="container">
+  <view class="order-list" hidden="{{carList.length > 0 ? false : true}}">
+    <view class="a-order" wx:for-items="{{carList}}" wx:key=index">
+      <view class="order-date">
+        <view class="date-box">车牌号：{{item.carNo}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">品牌：{{item.brand}}</view>
+      </view>
+      
+    </view>
+  </view>
+</view>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.goodsPay.dao.GoodsPayDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.goodsPay.entity.GoodsPayEntity" id="GoodsPayMap">
+        <result property="id" column="id"/>
+		<result property="goodsId" column="goods_id"/>
+		<result property="memberId" column="member_id"/>
+		<association property="member" javaType="com.YuXiuHui.modules.member.entity.MemberEntity">
+			<result  property="realName"  column="real_name"/>
+			<result  property="mobile"  column="mobile"/>
+
+		</association>
+    </resultMap>
+    
+
+	
+	<select id="queryObject" resultType="com.YuXiuHui.modules.goodsPay.entity.GoodsPayEntity">
+
+		select
+			g.id,
+			g.goods_id ,
+			g.member_id,
+
+		from p_goodspay  g where g.id = #{value}
+	</select>
+	
+
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.goodsPay.entity.GoodsPayEntity">
+
+		select g.id,
+		g.goods_id ,
+		g.member_id,
+		m.real_name 'member.realName',
+		m.mobile 'member.mobile'
+		from p_goodspay g left join base_member m on m.id = g.member_id
+
+		<where>
+			<if test="goodsId != null and goodsId.trim() != ''">
+				and `goods_id` like concat('%',#{goodsId},'%')
+			</if>
+			<if test="memberId != null">
+				and g.member_id = #{memberId}
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(1) from p_goodspay
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.goodsPay.entity.GoodsPayEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into p_goodspay
+		(
+			`goods_id`,
+			`member_id`
+		)
+		values
+		(
+			#{goodsId},
+			#{memberId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.goodsPay.entity.GoodsPayEntity">
+		update p_goodspay 
+		<set>
+			<if test="goodsId != null">`goods_id` = #{goodsId}, </if>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from p_goodspay where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from p_goodspay where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

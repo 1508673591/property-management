@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.cms.dao.LikedDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.cms.entity.LikedEntity" id="likedMap">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="articleId" column="article_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.YuXiuHui.modules.cms.entity.LikedEntity">
+		select * from cms_liked where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.cms.entity.LikedEntity">
+		select * from cms_liked
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from cms_liked 
+		<where>
+			<if test="memberId != null">
+				member_id = #{memberId}
+			</if>
+			<if test="articleId != null">
+				and article_id = #{articleId}
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.cms.entity.LikedEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into cms_liked
+		(
+			`member_id`, 
+			`article_id`, 
+			`create_time`
+		)
+		values
+		(
+			#{memberId}, 
+			#{articleId}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.cms.entity.LikedEntity">
+		update cms_liked 
+		<set>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+			<if test="articleId != null">`article_id` = #{articleId}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from cms_liked where id = #{value}
+	</delete>
+	
+	<delete id="deleteByArticleId">
+		delete from cms_liked where article_id = #{articleId} and member_id = #{memberId}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from cms_liked where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

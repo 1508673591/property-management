@@ -1,0 +1,17 @@
+<!--pages/join-list/index.wxml-->
+<view class="container">
+  <view class="order-list" hidden="{{payList.length > 0 ? false : true}}">
+    <view class="a-order" wx:for-items="{{payList}}" wx:key=index">
+      <view class="order-date">
+        <view class="date-box">金额：{{item.amount}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">类型：{{item.type == 1? '物业费': '停车费'}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">时间：{{item.createTime}}</view>
+      </view>
+      
+    </view>
+  </view>
+</view>

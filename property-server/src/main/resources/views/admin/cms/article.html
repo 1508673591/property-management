@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.11.1/dist/bootstrap-table.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/blueimp-file-upload@9.31.0/css/jquery.fileupload.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.3.8/dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.3.8/dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="../../css/main.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div id="app" v-cloak class="wrapper">
+  <main-header></main-header>
+  <main-sidebar></main-sidebar>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <content-header title="文章管理"></content-header>
+    <!-- Main content -->
+    <section class="content">
+	<div v-show="showList">
+		<div class="box">
+			<div class="box-header with-border">
+              <h3 class="box-title">列表</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+				<div class="form-group">
+					<div class="col-md-2">
+						<input type="text" class="form-control" v-model="q.title" @keyup.enter="query" placeholder="标题">
+					</div>
+					<a class="btn btn-default" @click="query">查询</a>
+					<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+					<a class="btn btn-warning" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+					<a class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+				</div>
+		    	<table id="table"></table>
+			</div>
+		</div>	
+    </div>
+    
+    <div v-show="!showList">
+		<div class="box">
+			<div class="box-header with-border">
+              <h3 class="box-title">{{title}}</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+			<form class="form-horizontal">
+				<div class="form-group">
+				   	<div class="col-sm-2 control-label">标题</div>
+				   	<div class="col-sm-7">
+				      <input type="text" class="form-control" v-model="article.title" placeholder="标题"/>
+				    </div>
+				</div>
+				<div class="form-group">
+				   	<div class="col-sm-2 control-label">摘要</div>
+				   	<div class="col-sm-7">
+				      <input type="text" class="form-control" v-model="article.summary" placeholder="摘要"/>
+				    </div>
+				</div>
+				
+				<div class="form-group">
+				   	<div class="col-sm-2 control-label">图片</div>
+				   	<div class="col-sm-7">
+				      <!-- The fileinput-button span is used to style the file input field as button -->
+					    <span class="btn btn-success fileinput-button">
+					        <i class="glyphicon glyphicon-plus"></i>
+					        <span>选择图片...</span>
+					        <!-- The file input field used as target for the file upload widget -->
+					        <input id="fileupload" type="file" name="file" multiple>
+					    </span>
+					   	750*300px;200kb以内
+					    <br>
+					    <!-- The container for the uploaded files -->
+					    <div id="files" class="files">
+					    	<div>
+					    		<img id="picUrl" alt="" width="200px" v-bind:src="article.picUrl">
+					    		<input name="picUrl" type="hidden" v-model="article.picUrl"/>
+					    	</div>
+					    </div>
+				    </div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-2 control-label">文章类型</div>
+					<div class="col-sm-7">
+						<label class="radio-inline">
+							<input name="type" type="radio" value="1" v-model="article.type">文章
+						</label>
+						<label class="radio-inline">
+							<input name="type" type="radio" value="2" v-model="article.type">视频
+						</label>
+					</div>
+				</div>
+				<div class="form-group" v-show="article.type == 2">
+				   	<div class="col-sm-2 control-label">视频</div>
+				   	<div class="col-sm-7">
+				      <!-- The fileinput-button span is used to style the file input field as button -->
+					    <span class="btn btn-success fileinput-button">
+					        <i class="glyphicon glyphicon-plus"></i>
+					        <span>选择视频...</span>
+					        <!-- The file input field used as target for the file upload widget -->
+					        <input id="fileuploadVideo" type="file" name="file" multiple>
+					    </span>
+					   	 20M以内;支持mp4|avi|rm|rmvb
+					    <br>
+					    <!-- The container for the uploaded files -->
+					    <div id="files" class="files">
+					    	<div>
+					    		<video id="videoUrl" controls="controls" width="200px" v-bind:src="article.videoUrl">您的浏览器不支持 video 标签。</video>
+					    	</div>
+					    </div>
+				    </div>
+				</div>
+				
+				<div class="form-group">
+				   	<div class="col-sm-2 control-label">内容</div>
+				   	<div class="col-sm-7">
+				      <script id="container" name="content" type="text/plain">
+    			  	  </script>
+				    </div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-2 control-label"></div> 
+					<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+					&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+	</section>
+  </div>
+</div>
+<!-- 选择菜单 -->
+<div id="columnLayer" style="display: none;padding:10px;">
+	<!-- <ul id="columnTree" class="ztree"></ul> -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script src="/plugins/layer/layer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.2.6/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.11.1/dist/bootstrap-table.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.11.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="/plugins/ueditor/ueditor.config.js"></script>
+<script src="/plugins/ueditor/ueditor.all.min.js"></script>
+<script src="/plugins/jqfileupload/js/vendor/jquery.ui.widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-file-upload@9.31.0/js/jquery.iframe-transport.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-file-upload@9.31.0/js/jquery.fileupload.min.js"></script>
+<script src="/js/admin/common.js"></script>
+<script src="/js/admin/components.js"></script>
+<script src="https://cdn.bootcss.com/admin-lte/2.3.8/js/app.min.js"></script>
+<script src="/js/admin/cms/article.js"></script>
+<script type="text/javascript">
+var ue = UE.getEditor('container',{
+    toolbars: [['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'simpleupload', 'justifyleft', 'justifyright', 'justifycenter', 'fontfamily', 'fontsize']],
+    autoHeightEnabled: true,
+    autoFloatEnabled: true,
+    initialFrameHeight: 400
+});
+$(function(){
+	//Change this to the location of your server-side upload handler:
+	var url = "/api/fileupload/upload";
+	$('#fileupload').fileupload({
+	    url: url,
+	    dataType: 'json',
+	    acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i,
+	    maxFileSize: 204800,
+	    done: function (e, data) {
+	        if(data.result.code == 0){
+	        	$("#picUrl").attr("src", data.result.url);
+	        	vm.article.picUrl = data.result.url;
+	        }
+	    }
+	}).prop('disabled', !$.support.fileInput)
+	    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+	    
+	$('#fileuploadVideo').fileupload({
+	    url: "/api/fileupload/upload",
+	    dataType: 'json',
+	    acceptFileTypes:  /(\.|\/)(mp4|avi|rm|rmvb)$/i,
+	    maxFileSize: 204800000,
+	    done: function (e, data) {
+	        if(data.result.code == 0){
+	        	$("#videoUrl").attr("src", data.result.url);
+	        	vm.article.videoUrl = data.result.url;
+	        }
+	    }
+	}).prop('disabled', !$.support.fileInput)
+	    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+})
+
+</script>
+</body>
+</html>

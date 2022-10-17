@@ -1,0 +1,12 @@
+<!--pages/call/index.wxml-->
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call" data-phone="18112907714">
+      <view class="weui-cell__bd">电话一：20181002873</view>
+    </view>
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call" data-phone="18112907714">
+      <view class="weui-cell__bd">电话二：20181002873</view>
+    </view>
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call" data-phone="18112907714">
+      <view class="weui-cell__bd">电话三：20181002873</view>
+    </view>
+  </view>

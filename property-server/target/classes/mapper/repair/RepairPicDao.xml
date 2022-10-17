@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.repair.dao.RepairPicDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.repair.entity.RepairPicEntity" id="repairPicMap">
+        <result property="id" column="id"/>
+        <result property="repairId" column="repair_id"/>
+        <result property="picUrl" column="pic_url"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.YuXiuHui.modules.repair.entity.RepairPicEntity">
+		select * from r_repair_pic where id = #{value}
+	</select>
+	
+	<select id="queryByRepairId" resultType="string">
+		select pic_url from r_repair_pic where repair_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.repair.entity.RepairPicEntity">
+		select * from r_repair_pic
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from r_repair_pic 
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.repair.entity.RepairPicEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into r_repair_pic
+		(
+			`repair_id`, 
+			`pic_url`
+		)
+		values
+		(
+			#{repairId}, 
+			#{picUrl}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.repair.entity.RepairPicEntity">
+		update r_repair_pic 
+		<set>
+			<if test="repairId != null">`repair_id` = #{repairId}, </if>
+			<if test="picUrl != null">`pic_url` = #{picUrl}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from r_repair_pic where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from r_repair_pic where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.cms.dao.ArticleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.cms.entity.ArticleEntity" id="articleMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="content" column="content"/>
+        <result property="columnId" column="column_id"/>
+        <result property="type" column="type"/>
+        <result property="videoUrl" column="video_url"/>
+        <result property="vid" column="vid"/>
+        <result property="publishDate" column="publish_date"/>
+        <result property="columnName" column="column_name"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.YuXiuHui.modules.cms.entity.ArticleEntity">
+		select t.*, (select count(1) from cms_comment c where c.article_id = t.id) as commentNum, (select count(1) from cms_liked c where c.article_id = t.id) as likedNum from cms_article t
+		where t.id = #{value}
+	</select>
+	
+	<select id="queryOneByColumnId" resultType="com.YuXiuHui.modules.cms.entity.ArticleEntity">
+		select t.* from cms_article t where column_id = #{value} limit 1
+	</select>
+	
+	<select id="queryOneByColumnCode" resultType="com.YuXiuHui.modules.cms.entity.ArticleEntity">
+		select t.* from cms_article t left join cms_column c on t.column_id = c.id where c.code = #{columnCode} limit 1
+	</select>
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.cms.entity.ArticleEntity">
+		select t.*, (select count(1) from cms_comment c where c.article_id = t.id) as commentNum, (select count(1) from cms_liked c where c.article_id = t.id) as likedNum from cms_article t
+		<where>
+			<if test="columnCode != null and columnCode != ''">
+				and c.code = #{columnCode}
+			</if>
+			<if test="type != null and type != ''">
+				and t.type = #{type}
+			</if>
+			<if test="title != null and title != ''">
+				and t.title like concat('%', #{title}, '%')
+			</if>
+			<if test="columnId != null and columnId != '' and columnId != -1">
+				and t.column_id = #{columnId}
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by t.id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from cms_article 
+		<where>
+			<if test="title != null and title != ''">
+				and title like concat('%', #{title}, '%')
+			</if>
+			<if test="columnId != null and columnId != '' and columnId != -1">
+				and column_id = #{columnId}
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.cms.entity.ArticleEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into cms_article
+		(
+			`title`, 
+			`summary`, 
+			`pic_url`, 
+			`content`, 
+			`type`, 
+			`video_url`, 
+			`vid`, 
+			`column_id`, 
+			`publish_date`
+		)
+		values
+		(
+			#{title}, 
+			#{summary}, 
+			#{picUrl}, 
+			#{content}, 
+			#{type}, 
+			#{videoUrl}, 
+			#{vid}, 
+			#{columnId}, 
+			#{publishDate}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.cms.entity.ArticleEntity">
+		update cms_article 
+		<set>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="summary != null">`summary` = #{summary}, </if>
+			<if test="picUrl != null">`pic_url` = #{picUrl}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="videoUrl != null">`video_url` = #{videoUrl}, </if>
+			<if test="vid != null">`vid` = #{vid}, </if>
+			<if test="columnId != null">`column_id` = #{columnId}, </if>
+			<if test="publishDate != null">`publish_date` = #{publishDate}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from cms_article where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from cms_article where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

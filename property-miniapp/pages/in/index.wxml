@@ -1,0 +1,55 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="swiper-container">
+    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-dots="true">
+      <block wx:for="{{bannerList}}" wx:key="index">
+        <swiper-item>
+          <image bindtap="tapBanner" data-id="{{item.link}}" src="{{item.picUrl}}" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="category-container">
+    <view class='title'>功能汇</view>
+    <view class="weui-grids">
+        <navigator url="../property/pay/index" class="weui-grid category">
+          <image class="weui-grid__icon" src="/images/pay.png" />
+          <view class="weui-grid__label label">缴费</view>
+        </navigator>
+        <navigator url="../repair/publish/index" class="weui-grid category">
+          <image class="weui-grid__icon" src="/images/repair.png" />
+          <view class="weui-grid__label label">报修</view>
+        </navigator>
+        <navigator url="../msg/msg-list/index" class="weui-grid category">
+          <image class="weui-grid__icon" src="/images/message.png" />
+          <view class="weui-grid__label label">消息</view>
+        </navigator>
+        <navigator url="../shopping/index" class="weui-grid category">
+          <image class="weui-grid__icon" src="/images/shopping.png" />
+          <view class="weui-grid__label label">淘淘乐</view>
+        </navigator>
+        <navigator url="../index/index" class="weui-grid category">
+          <image class="weui-grid__icon" src="/images/signin.png" />
+          <view class="weui-grid__label label">签签</view>
+        </navigator>
+        <navigator url="../function/index" class="weui-grid category">
+          <image class="weui-grid__icon" src="/images/function.png" />
+          <view class="weui-grid__label label">更多功能</view>
+        </navigator>
+    </view>
+  </view>
+
+  <view class="house-container">
+    <view class='title'>公告汇</view>
+    <block wx:for="{{articleList}}" wx:key="index">
+      <navigator class=' weui-flex news-box' url="/pages/cms/article-detail/index?id={{item.id}}">
+        <image class="topic-pic" src="{{item.picUrl}}"></image>
+        <view class="news-title">
+          {{item.title}}
+        </view>
+      </navigator>
+    </block>
+  </view>
+  
+</view>

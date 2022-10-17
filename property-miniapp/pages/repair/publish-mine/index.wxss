@@ -1,0 +1,42 @@
+.topic-container {
+  padding: 20rpx 0 0 0;
+}
+
+.topic-box {
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.topic-box .img-box {
+}
+
+.topic-box .img-box image {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.topic-box .topic-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 32rpx;
+  color: #000;
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+  font-weight: bold;
+  max-width: 420rpx;
+}
+
+.topic-box .topic-item {
+  overflow: hidden;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.topic-box .del {
+  width: 40rpx;
+  height: 40rpx;
+}

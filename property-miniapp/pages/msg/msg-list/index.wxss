@@ -1,0 +1,20 @@
+/* pages/msg-list/index.wxss */
+.list {
+  padding: 15rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.list .title {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.list .content {
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

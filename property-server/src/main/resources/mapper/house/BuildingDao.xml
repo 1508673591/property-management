@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.YuXiuHui.modules.house.dao.BuildingDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.YuXiuHui.modules.house.entity.BuildingEntity" id="buildingMap">
+        <result property="id" column="id"/>
+        <result property="buildingName" column="building_name"/>
+        <result property="remarks" column="remarks"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.YuXiuHui.modules.house.entity.BuildingEntity">
+		select * from p_building where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.YuXiuHui.modules.house.entity.BuildingEntity">
+		select * from p_building
+		<where>
+			<if test="buildingName != null and buildingName.trim() != ''">
+				and `building_name` like concat('%',#{buildingName},'%') 
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from p_building 
+	</select>
+	 
+	<insert id="save" parameterType="com.YuXiuHui.modules.house.entity.BuildingEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into p_building
+		(
+			`building_name`, 
+			`remarks`, 
+			`create_time`
+		)
+		values
+		(
+			#{buildingName}, 
+			#{remarks}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.YuXiuHui.modules.house.entity.BuildingEntity">
+		update p_building 
+		<set>
+			<if test="buildingName != null">`building_name` = #{buildingName}, </if>
+			<if test="remarks != null">`remarks` = #{remarks}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from p_building where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from p_building where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

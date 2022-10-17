@@ -1,0 +1,26 @@
+<!--pages/topic/index.wxml-->
+<view class="container">
+  <view class="weui-navbar">
+    <block wx:for="{{tabs}}" wx:key="*this">
+      <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+        <view class="weui-navbar__title">{{item}}</view>
+      </view>
+    </block>
+    <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+  </view>
+  <block wx:for="{{topicList}}" wx:key="index">
+    <navigator class='news-box' url="/pages/cms/article-detail/index?id={{item.id}}">
+      <image class="topic-pic" src="{{item.picUrl}}"></image>
+      <view class="news-title">
+        {{item.title}}
+      </view>
+      <view class='news-date'>
+        <view class="news-liked">{{item.createTime}}</view>
+        <view class="news-liked">
+          <text>{{item.likedNum}}点赞    {{item.commentNum}}评论</text>
+        </view>
+      </view>
+    </navigator>
+  </block>
+  <!--<image class="add" src="/images/add.png" bindtap="addTopic" hidden="true"></image>-->
+</view>

@@ -1,0 +1,63 @@
+{
+  "pages":[
+    "pages/in/index",
+    "pages/auth/index",
+    "pages/login/index",
+    "pages/register/index",
+    "pages/my/index/index",
+    "pages/my/info/index",
+    "pages/my/edit/index",
+    "pages/cms/article-detail/index",
+    "pages/cms/comment/index",
+    "pages/phone_number/phone_number",
+    "pages/property/pay/index",
+    "pages/property/house/index",
+    "pages/property/car/index",
+    "pages/property/pay-list/index",
+    "pages/repair/publish-mine/index" ,
+    "pages/repair/publish/index" ,
+    "pages/msg/msg-list/index",
+    "pages/msg/msg-detail/index",
+    "pages/index/index",
+    "pages/healthyPunchClock/healthyPunchClock",
+    "pages/gobackRegister/gobackRegister",
+    "pages/function/index",
+    "pages/shopping/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor":  "#cce6ff",
+    "navigationBarTitleText": "物业管理",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#6e6d6b",
+    "selectedColor": "#e64340",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "box-shadow": "0 0 6px 0",
+    "list": [
+      {
+        "pagePath": "pages/in/index",
+        "iconPath": "images/nav/home-off.png",
+        "selectedIconPath": "images/nav/home-on.png",
+        "text": "首页"
+      },
+
+      {
+        "pagePath": "pages/phone_number/phone_number",
+        "iconPath": "images/nav/phone-off.png",
+        "selectedIconPath": "images/nav/phone-on.png",
+        "text": "电话"
+      },
+      {
+        "pagePath": "pages/my/index/index",
+        "iconPath": "images/nav/personal-off.png",
+        "selectedIconPath": "images/nav/personal-on.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

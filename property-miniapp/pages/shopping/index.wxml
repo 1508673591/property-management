@@ -1,0 +1,51 @@
+<!--pages/shopp/index.wxml-->
+<scroll-view  scroll-y="true"  class="page-body" >
+  <!--list--> 
+  <view class="nav_section">
+        <block wx:for="{{shoppingList}}">
+            <view class="nav_section_items" >
+                 <view class="section_image" 
+                  data-aid="{{item.id}}">
+                  <image src="{{item.picUrl}}" mode="aspectFill"></image>
+                  </view>
+                <!--content-->
+                <view class="section_cont" 
+                 data-aid="{{item.id}}">
+                    <view class="section_cont_sub">
+                        <text>{{item.tag}}</text>
+                    </view>
+                    <view class="section_cont_price">价格：{{item.goodsPrice}}</view>
+                    <view>{{item.goodsDesc}}</view>
+                </view>
+                <!--book-->
+                <view class="section_book" bindtap="bookTap" data-aid="{{item.goodsId}}">
+                  <text>详情</text>
+                </view>
+              </view>
+            </block>
+</view>
+</scroll-view>
+<view class="container">
+  <view class="order-list" hidden="{{shoppingList.length > 0 ? false : true}}">
+    <view class="a-order" wx:for-items="{{shoppingList}}" wx:key=index">
+      <view class="order-date">
+        <view class="date-box">编号：{{item.goodsId}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">标签：{{item.tag}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">发布者：{{item.member.realName}}</view>
+      </view>
+            <view class="order-date">
+        <view class="date-box">价格：{{item.goodsPrice}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">商品详情：{{item.goodsDesc}}</view>
+      </view>
+      <view class="order-date">
+        <view class="date-box">发布时间：{{item.createTime}}</view>
+      </view>
+          </view>
+  </view>
+</view>
